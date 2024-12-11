@@ -4,6 +4,8 @@ const Modal = ({ open, setOpen, pic_1, pic_2 }) => {
 
     const onClick = () => {
         setOpen(false)
+        console.log(pic_1)
+        console.log(pic_2)
     }
 
 
@@ -11,10 +13,15 @@ const Modal = ({ open, setOpen, pic_1, pic_2 }) => {
         return null
     }
 
+    if (!pic_1 || !pic_2) {
+        return <div>Modal u izradi</div>
+    }
+
     return (
 
 
-        <div className={!open || !pic_1 || !pic_2 ? "invisible" : "visible"}>
+        // <div className={!open || !pic_1 || !pic_2 ? "invisible" : "visible"}>
+        <div className='visible'>
             <div className={"bg-black  shadow p-6 transition-all scale-100 opacity-50 fixed top-0  w-full h-full "}>
             </div>
             <div className='fixed top-0 w-full h-full flex flex-col justify-center items-center content-center gap-10' >

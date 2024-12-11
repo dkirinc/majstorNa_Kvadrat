@@ -1,18 +1,21 @@
 
-import React, { useState } from 'react'
+import React from 'react'
 import { FaCircleXmark } from 'react-icons/fa6'
 
 const GalleryItem = ({ item, open, photoId, admin, deleteGalleryItem }) => {
 
 
     const onClick = () => {
+        console.log("This is " + open)
+        console.log(item.id)
 
-        if (!admin) {
-            photoId(item.id)
-        }
+        photoId(item.id)
+        console.log(photoId)
 
         open(true)
         console.log(item)
+
+
     }
 
 
@@ -28,7 +31,7 @@ const GalleryItem = ({ item, open, photoId, admin, deleteGalleryItem }) => {
 
     return (
         <div className=''>
-            <div onClick={!admin ? onClick : null} className={'relative w-[221px]  xl:w-[420px] m-1  flex ease-in-out duration-300 ' + (!admin ? ' hover:scale-95' : '')}>
+            <div onClick={!admin ? (() => onClick()) : null} className={'relative w-[221px]  xl:w-[420px] m-1  flex ease-in-out duration-300 ' + (!admin ? ' hover:scale-95' : '')}>
                 <div className='flex  my-1  rounded-lg '>
                     <img src={item.pic_1} alt="" className='w-[110px] xl:w-[210px] h-[190px] xl:h-[380px] object-fill  rounded-l-md' />
                     <div className='w-[1px] bg-orange-main opacity-80'></div>

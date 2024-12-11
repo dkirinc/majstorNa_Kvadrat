@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import GalleryData from '@/app/data/GalleryData'
 import GalleryItem from '@/app/components/GalleryItem'
 import Gallery from '@/app/components/Gallery'
@@ -10,11 +10,21 @@ import Modal from '@/app/components/Modal'
 
 export default function Panel() {
 
-    const [galleryData, setGalleryData] = useState(GalleryData)
+    const [galleryData, setGalleryData] = useState(null)
     const [open, setOpen] = useState(false)
     const [pictureId, setPictureId] = useState("null")
     const [fileBefore, setFileBefore] = useState("")
     const [fileAfter, setFileAfter] = useState("")
+
+    useEffect(() => {
+        fetchGallery()
+    }, [])
+
+    const fetchGallery = async () => {
+        const response = await fetch(`http://localhost:5000/gallery?_sort=id&_order=desc`)
+        const data = await response.json()
+        setGalleryData(data)
+    }
 
     const addGalleryItem = (newGalleryItem) => {
         newGalleryItem.id = uuidv4()
@@ -36,12 +46,14 @@ export default function Panel() {
     ]
 
     function addItem() {
-        if (fileBefore.trim().length > 2 || fileAfter.trim().length > 2) {
+        if (fileBefore.trim().length > 2 && fileAfter.trim().length > 2) {
             const newGalleryItem = {
+                id: null,
                 pic_1: fileBefore,
                 pic_2: fileAfter
             }
-
+            console.log("Before: " + fileBefore.trim().length)
+            console.log("After: " + fileAfter.trim().length)
             addGalleryItem(newGalleryItem)
         } else {
             alert("Niste unijeli fotografije!")
@@ -64,7 +76,7 @@ export default function Panel() {
                         <FileUploader handleFile={setFileAfter} btnText={'Slika - Poslije'} />
                         {fileAfter ? <p>${fileAfter}</p> : null}
                     </div>
-                    <GalleryItem item={fileAfter.length < 1 ? (GalleryData[1]) : ({ id: 1, pic_1: fileBefore, pic_2: fileAfter })} admin={false} open={setOpen} />
+                    <GalleryItem photoId={propsModal[0].photoId} item={fileAfter.length < 1 ? (GalleryData[1]) : ({ id: 1, pic_1: fileBefore, pic_2: fileAfter })} admin={false} open={setOpen} />
                     <button onClick={addItem} className='bg-orange-main p-2 rounded-md w-36 text-white'>Dodaj sliku</button>
                 </div>
                 <Gallery galleryData={propsModal[0]} admin={true} deleteGalleryItem={deleteGalleryItem} />

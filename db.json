@@ -1,0 +1,19 @@
+{
+    "gallery": [
+        {
+            "id": 1,
+            "pic_1": "/mnk_1_before.jpg",
+            "pic_2": "/mnk_2_after.jpg"
+        },
+        {
+            "id": 2,
+            "pic_1": "/mnk_2_before.jpg",
+            "pic_2": "/mnk_3_after.jpg"
+        },
+        {
+            "id": 3,
+            "pic_1": "/mnk_3_before.jpg",
+            "pic_2": "/mnk_4_after.jpg"
+        }
+    ]
+}

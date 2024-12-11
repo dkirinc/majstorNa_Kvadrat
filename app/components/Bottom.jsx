@@ -9,12 +9,10 @@ const Bottom = forwardRef((props, ref) => {
     const refContact = ref[0].refContact
     /* props.props[0].galleryData */
 
-    function onClick() {
-        console.log(props.props[0])
-    }
+
 
     return (
-        <div onClick={onClick} className='bg-gray-main w-full flex flex-col px-20 py-16 gap-20'>
+        <div className='bg-gray-main w-full flex flex-col px-20 py-16 gap-20'>
             <Gallery ref={refGallery} galleryData={props.props[0]} />
             <Contact ref={refContact} />
         </div>
