@@ -6,8 +6,8 @@ const Services = forwardRef((props, ref) => {
     return (
         <div id='services' className=' bg-gray-main flex flex-col items-center '>
             <div className='xl:w-[1200px] flex flex-col  xl:flex-row  justify-between py-36 self-center gap-36 items-center'>
-                <h2 ref={ref} className='w-[164px] font-raleway '>Naše usluge</h2>
-                <div className='flex flex-col md:col-span-2 lg:flex-row gap-[120px] lg:gap-[35px]'>
+                <h2 className='w-[164px] font-raleway '>Naše usluge</h2>
+                <div ref={ref} className='flex flex-col md:col-span-2 lg:flex-row gap-[120px] lg:gap-[35px]'>
                     <div className='relative w-[200px] h-[184px] bg-white p-5 text-black transition duration-150 ease-in-out hover:scale-110 cursor-default z-1'>
                         <p className='text-black'>Kućanski
                             popravci (zamjena
