@@ -1,20 +1,13 @@
 "use client"
 import React from 'react'
+import { useEffect } from 'react'
 import GalleryItem from './GalleryItem'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import { useAppContext } from '../context'
 
-const Gallery = ({ galleryData, ref, admin, deleteGalleryItem }) => {
+const Gallery = ({ ref, admin, deleteGalleryItem }) => {
 
-
-
-    if (!galleryData || galleryData.length === 0) {
-        return <div>Galerija u izradi</div>
-    }
-
-    if (galleryData.galleryData == undefined || galleryData.galleryData == null) {
-        return <div>Galerija u izradi</div>
-    }
-
+    const { galleryData } = useAppContext()
 
 
     const slideLeft = () => {
@@ -29,14 +22,7 @@ const Gallery = ({ galleryData, ref, admin, deleteGalleryItem }) => {
     }
 
 
-
-
-
-    function onClick() {
-
-    }
-
-    if (!galleryData.galleryData) {
+    if (!galleryData) {
         return <div>Galerija u izradi</div>
     }
 
@@ -52,7 +38,7 @@ const Gallery = ({ galleryData, ref, admin, deleteGalleryItem }) => {
 
 
                     {
-                        galleryData.galleryData.map((item) => (
+                        galleryData.map((item) => (
                             <GalleryItem key={item.id} item={item} className='' open={galleryData.open} photoId={galleryData.photoId} admin={admin} deleteGalleryItem={deleteGalleryItem} />
                         ))
                     }

@@ -13,7 +13,7 @@ const Bottom = forwardRef((props, ref) => {
 
     return (
         <div className='bg-gray-main w-full flex flex-col px-20 py-16 gap-20'>
-            <Gallery ref={refGallery} galleryData={props.props[0]} />
+            <Gallery ref={refGallery} />
             <Contact ref={refContact} />
         </div>
     )

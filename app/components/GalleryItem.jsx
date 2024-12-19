@@ -1,18 +1,21 @@
 
 import React from 'react'
 import { FaCircleXmark } from 'react-icons/fa6'
+import { useAppContext } from '../context'
 
-const GalleryItem = ({ item, open, photoId, admin, deleteGalleryItem }) => {
+const GalleryItem = ({ item, admin, deleteGalleryItem }) => {
 
+    const { setOpen, setPictureId, galleryData, pictureId } = useAppContext()
 
     const onClick = () => {
-        console.log("This is " + open)
-        console.log(item.id)
 
-        photoId(item.id)
-        console.log(photoId)
 
-        open(true)
+        setPictureId(item.id)
+        console.log(galleryData[pictureId - 1].pic_1)
+        //photoId(item.id)
+        //console.log(photoId)
+
+        setOpen(true)
         console.log(item)
 
 

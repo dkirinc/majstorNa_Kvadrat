@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import AdminData from '../data/AdminData'
 
 export default function Admin() {
+
     const router = useRouter()
     const [adminData, setAdminData] = useState(AdminData)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -50,7 +50,6 @@ export default function Admin() {
                                 onChange={handlePasswordChange}
                                 required />
                         </div>
-
                         <button type='submit' className='bg-orange-main text-white px-5 py-2 self-start hover:bg-orange-secondary mt-6 xl:mt-0'>Spoji se</button>
                     </form>
                 </div>
