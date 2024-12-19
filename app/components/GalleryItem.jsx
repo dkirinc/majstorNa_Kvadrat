@@ -5,22 +5,15 @@ import { useAppContext } from '../context'
 
 const GalleryItem = ({ item, admin, deleteGalleryItem }) => {
 
-    const { setOpen, setPictureId, galleryData, pictureId } = useAppContext()
+    const { setOpen, setPictureId, setPic1, setPic2 } = useAppContext()
 
     const onClick = () => {
-
-
         setPictureId(item.id)
-        console.log(galleryData[pictureId - 1].pic_1)
-        //photoId(item.id)
-        //console.log(photoId)
-
+        setPic1(item.pic_1)
+        setPic2(item.pic_2)
         setOpen(true)
         console.log(item)
-
-
     }
-
 
     const deleteItem = (id) => {
         if (confirm('Dali ste sigurni da želite pobrisati ovu sliku iz galerije?')) {
@@ -30,7 +23,6 @@ const GalleryItem = ({ item, admin, deleteGalleryItem }) => {
             console.log('Thing was not saved to the database.');
         }
     }
-
 
     return (
         <div className=''>

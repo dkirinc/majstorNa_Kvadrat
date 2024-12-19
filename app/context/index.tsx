@@ -12,6 +12,8 @@ export function AppWrapper({ children }: {
     const [galleryData, setGalleryData] = useState(null)
     const [open, setOpen] = useState(false)
     const [pictureId, setPictureId] = useState(2)
+    const [pic_1, setPic1] = useState("")
+    const [pic_2, setPic2] = useState("")
 
     const fetchGallery = async () => {
         const response = await fetch(`http://localhost:5000/gallery?_sort=id&_order=desc`)
@@ -44,7 +46,11 @@ export function AppWrapper({ children }: {
                 galleryData,
                 setGalleryData,
                 addGalleryItem,
-                deleteGalleryItem
+                deleteGalleryItem,
+                pic_1,
+                pic_2,
+                setPic1,
+                setPic2
             }}>
             {children}
         </AppContext.Provider>

@@ -1,17 +1,10 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useAppContext } from '../context'
 
 const Modal = () => {
 
-    const { open, setOpen, galleryData, pictureId } = useAppContext()
-
-
-    if (!galleryData[pictureId - 1].pic_1 == 1) {
-        const pic_1 = galleryData[pictureId - 1].pic_1
-        const pic_2 = galleryData[pictureId - 1].pic_2
-    }
-
+    const { open, setOpen, galleryData, pic_1, pic_2 } = useAppContext()
 
     const onClick = () => {
         setOpen(false)
@@ -21,7 +14,7 @@ const Modal = () => {
         return null
     }
 
-    if (!pic_1 || !pic_2) {
+    if (!galleryData) {
         return <div>Modal u izradi</div>
     }
 
