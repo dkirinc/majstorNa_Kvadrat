@@ -1,8 +1,7 @@
 import React from 'react'
-import { useRef, useState } from 'react';
-import { supabase } from '../utils/supabaseClient'
+import { useRef } from 'react';
 
-const FileUploader = ({ handleFile, btnText }) => {
+const FileUploader = ({ handleFile, handleFileDB, btnText }) => {
 
     // Create a reference to the hidden file input element
     const hiddenFileInput = useRef(null);
@@ -16,10 +15,13 @@ const FileUploader = ({ handleFile, btnText }) => {
     // Call a function (passed as a prop from the parent component)
     // to handle the user-selected file 
     const handleChange = event => {
-        handleFileUpload(event)
+        console.log(event.target.files[0])
+        const fileDB = event.target.files[0]
+
         const fileUploaded = URL.createObjectURL(event.target.files[0]);
-        console.log(fileUploaded)
+        console.log("Druga provjera - " + fileUploaded)
         handleFile(fileUploaded);
+        handleFileDB(fileDB)
     };
 
     return (

@@ -9,6 +9,10 @@ const Gallery = ({ ref, admin, deleteGalleryItem }) => {
 
     const { galleryData } = useAppContext()
 
+    useEffect(() => {
+        console.log("Iz gallery-a ")
+        console.log(galleryData)
+    }, [galleryData])
 
     const slideLeft = () => {
         var slider = document.getElementById('slider')
