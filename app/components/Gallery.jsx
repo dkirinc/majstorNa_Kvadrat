@@ -5,14 +5,10 @@ import GalleryItem from './GalleryItem'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { useAppContext } from '../context'
 
-const Gallery = ({ ref, admin, deleteGalleryItem }) => {
+const Gallery = ({ ref, admin }) => {
 
     const { galleryData } = useAppContext()
 
-    useEffect(() => {
-        console.log("Iz gallery-a ")
-        console.log(galleryData)
-    }, [galleryData])
 
     const slideLeft = () => {
         var slider = document.getElementById('slider')
@@ -40,15 +36,11 @@ const Gallery = ({ ref, admin, deleteGalleryItem }) => {
                 </div>
                 <div id='slider' className="relative flex items-center w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide">
 
-
                     {
                         galleryData.map((item) => (
-                            <GalleryItem key={item.id} item={item} className='' open={galleryData.open} photoId={galleryData.photoId} admin={admin} deleteGalleryItem={deleteGalleryItem} />
+                            <GalleryItem key={item.id} item={item} className='' open={galleryData.open} photoId={galleryData.photoId} admin={admin} />
                         ))
                     }
-
-
-
 
                 </div>
                 <div className='relative '>

@@ -1,5 +1,4 @@
 "use client"
-import { v4 as uuidv4 } from 'uuid'
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
 
@@ -13,10 +12,22 @@ export function AppWrapper({ children }: {
 
     const [workingData, setWorkingData] = useState(null)
     const [galleryData, setGalleryData] = useState(null)
+    const [galleryRefresh, setGalleryRefresh] = useState(false)
     const [open, setOpen] = useState(false)
     const [pictureId, setPictureId] = useState(2)
     const [pic_1, setPic1] = useState("")
     const [pic_2, setPic2] = useState("")
+    const [deleteItemId, setDeleteItemId] = useState(null)
+
+    //Admin panel values
+    const [fileBefore, setFileBefore] = useState("")
+    const [fileBeforeDB, setFileBeforeDB] = useState(null)
+    const [fileAfter, setFileAfter] = useState("")
+    const [fileAfterDB, setFileAfterDB] = useState(null)
+    const [toggle, setToggle] = useState(true);
+    const [fileLocationDB, setfileLocationDB] = useState({ pic_1: "", pic_2: "" });
+    const [uploading, setUploading] = useState(false);
+
 
     async function getGalleryInfo(user) {
         try {
@@ -25,9 +36,6 @@ export function AppWrapper({ children }: {
                 .select("*")
             if (error) throw error;
             if (data != null) {
-                // setProducts(data); // [product1,product2,product3]
-                console.log("Ide sa servera")
-                console.log(data)
                 setWorkingData(await getPhotoUrls(data))
             }
         } catch (error) {
@@ -35,14 +43,10 @@ export function AppWrapper({ children }: {
         }
     }
 
-    /* const addDataElement = (newDataElement) => {
-        setWorkingData(workingDataArray => [...workingDataArray, newDataElement])
-    } */
 
     async function getPhotoUrls(dataFull) {
         let myArray = []
         await Promise.all(dataFull.map(async (photo) => {
-            console.log(photo)
             const { data, error } = await supabase
                 .storage
                 .from('photos')
@@ -59,24 +63,140 @@ export function AppWrapper({ children }: {
     }
 
 
-    const fetchGallery = async () => {
-        const response = await fetch(`http://localhost:5000/gallery?_sort=id&_order=desc`)
-        const data = await response.json()
-        console.log(data)
-        setGalleryData(data)
+    async function getIdDBValue(id) {
+        try {
+            const { data, error } = await supabase
+                .from("Mnk_db")
+                .select("*")
+                .eq("id", id);
+            if (error) throw error;
+            if (data != null) {
+                return data
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
-    const addGalleryItem = (newGalleryItem) => {
-        newGalleryItem.id = uuidv4()
-        setGalleryData([newGalleryItem, ...galleryData])
+    async function deleteIdDBValue(id) {
+        try {
+            const { data, error } = await supabase
+                .from("Mnk_db")
+                .delete()
+                .eq("id", id);
+            if (error) throw error;
+            if (data != null) {
+                return data
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
-    const deleteGalleryItem = (id) => {
-        setGalleryData(galleryData.filter((item) => item.id !== id))
+    async function deleteIdGalleryPhotos(items) {
+        try {
+            const { error, data } = await supabase
+                .storage
+                .from('photos')
+                .remove([items[0].pic_1, items[0].pic_2])
+            if (error) throw error
+        } catch (error) {
+            alert(error.message);
+        }
     }
+
+    async function deleteGalleryItem(id) {
+        deleteIdGalleryPhotos(await getIdDBValue(id))
+        await deleteIdDBValue(id)
+
+    }
+
+    //Upload
+    async function createDBObject() {
+        try {
+            const { data, error } = await supabase
+                .from("Mnk_db")
+                .insert({
+                    pic_1: fileLocationDB.pic_1,
+                    pic_2: fileLocationDB.pic_2
+                })
+
+
+            if (error) throw error
+
+        }
+        catch (error) {
+            alert(error.message)
+        }
+    }
+
+
+
+    async function handleFileUpload(file, picBF) {
+        try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random()}.${fileExt}`
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                throw new Error("User not authenticated for photo upload")
+            }
+
+            const filePath = `user_uploads/${fileName}`
+            const { error } = await supabase.storage.from('photos')
+                .upload(filePath, file)
+
+            if (picBF == false) {
+                setfileLocationDB(fileLocationDB => {
+                    return {
+                        ...fileLocationDB,
+                        pic_2: filePath
+                    }
+                })
+            } else {
+                setfileLocationDB(fileLocationDB => {
+                    return {
+                        ...fileLocationDB,
+                        pic_1: filePath
+                    }
+
+                })
+            }
+
+            if (error) {
+                throw error
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
     useEffect(() => {
-        console.log(workingData)
+        if (fileBefore.trim().length > 2 && fileAfter.trim().length > 2) {
+            async function tableUploader() {
+                await createDBObject()
+                setUploading(false)
+                setGalleryRefresh(!galleryRefresh)
+
+            }
+            tableUploader()
+        }
+    }, [fileLocationDB.pic_2])
+
+    useEffect(() => {
+        if (fileBefore.trim().length > 2 && fileAfter.trim().length > 2) {
+            async function uploader() {
+                setUploading(true)
+                await handleFileUpload(fileBeforeDB, true)
+                await handleFileUpload(fileAfterDB, false)
+            }
+            uploader()
+        }
+    }, [toggle])
+
+
+    useEffect(() => {
         setGalleryData(workingData)
     }, [workingData])
 
@@ -86,8 +206,6 @@ export function AppWrapper({ children }: {
             await getGalleryInfo(user)
         }
         loader()
-        //fetchGallery()
-        console.log(galleryData)
     }, [])
 
 
@@ -101,12 +219,21 @@ export function AppWrapper({ children }: {
                 setPictureId,
                 galleryData,
                 setGalleryData,
-                addGalleryItem,
-                deleteGalleryItem,
+                galleryRefresh,
+                setGalleryRefresh,
                 pic_1,
                 pic_2,
                 setPic1,
-                setPic2
+                setPic2,
+                deleteGalleryItem,
+                setDeleteItemId,
+                fileBefore, setFileBefore,
+                fileBeforeDB, setFileBeforeDB,
+                fileAfter, setFileAfter,
+                fileAfterDB, setFileAfterDB,
+                toggle, setToggle,
+                fileLocationDB, setfileLocationDB,
+                uploading, setUploading
             }}>
             {children}
         </AppContext.Provider>

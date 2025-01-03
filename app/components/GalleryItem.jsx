@@ -3,9 +3,9 @@ import React from 'react'
 import { FaCircleXmark } from 'react-icons/fa6'
 import { useAppContext } from '../context'
 
-const GalleryItem = ({ item, admin, deleteGalleryItem }) => {
+const GalleryItem = ({ item, admin }) => {
 
-    const { setOpen, setPictureId, setPic1, setPic2 } = useAppContext()
+    const { setOpen, setPictureId, setPic1, setPic2, deleteGalleryItem } = useAppContext()
 
     const onClick = () => {
         setPictureId(item.id)
@@ -19,7 +19,6 @@ const GalleryItem = ({ item, admin, deleteGalleryItem }) => {
         if (confirm('Dali ste sigurni da želite pobrisati ovu sliku iz galerije?')) {
             deleteGalleryItem(id)
         } else {
-            // Do nothing!
             console.log('Thing was not saved to the database.');
         }
     }
