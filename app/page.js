@@ -35,9 +35,9 @@ export default function Home() {
         <Services ref={servicesRef} />
         <About ref={aboutRef} />
         <Bottom ref={refData} />
+        <Hamburger ref={refData} />
+        <Modal />
       </main>
-      <Hamburger ref={refData} />
-      <Modal />
     </AppWrapper>
   );
 }

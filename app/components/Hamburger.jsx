@@ -11,7 +11,6 @@ const Hamburger = (ref) => {
     }
 
     const toGallery = () => {
-        console.log(ref)
         ref.ref[0].refGallery.current?.scrollIntoView({
             behavior: 'smooth',
             block: 'center',

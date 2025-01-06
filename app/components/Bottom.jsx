@@ -1,4 +1,4 @@
-"use client"
+
 import React, { forwardRef } from 'react'
 import Gallery from './Gallery'
 import Contact from './Contact'

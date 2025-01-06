@@ -12,7 +12,6 @@ const GalleryItem = ({ item, admin }) => {
         setPic1(item.pic_1)
         setPic2(item.pic_2)
         setOpen(true)
-        console.log(item)
     }
 
     const deleteItem = (id) => {

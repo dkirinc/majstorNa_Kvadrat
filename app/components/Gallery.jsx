@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { useEffect } from 'react'
 import GalleryItem from './GalleryItem'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { useAppContext } from '../context'
@@ -13,7 +12,6 @@ const Gallery = ({ ref, admin }) => {
     const slideLeft = () => {
         var slider = document.getElementById('slider')
         slider.scrollLeft = slider.scrollLeft - 500
-        console.log(galleryData)
     }
 
     const slideRight = () => {
@@ -27,14 +25,14 @@ const Gallery = ({ ref, admin }) => {
     }
 
     return (
-        <div id='gallery' className='lg:w-[1200px] py-32 self-center flex flex-col items-center gap-16'>
+        <div id='gallery' className='xl:w-[1200px] py-32 self-center flex flex-col items-center gap-16'>
             <h2 className='mb-20 font-raleway '>Galerija</h2>
-            <div ref={ref} className=' w-[290px] md:w-[620px] lg:w-[900px] xl:w-[1200px]  flex items-center'>
+            <div ref={ref} className=' w-[290px] md:w-[620px] lg:w-[900px] xl:w-[1200px]  flex items-center overflow-hidden'>
                 <div className='relative'>
-                    <MdChevronLeft size={80} onClick={slideLeft} className='invisible md:visible absolute -left-[80px] -top-[40px] text-orange-main hover:opacity-50 ease-in-out duration-300' />
+                    <MdChevronLeft size={80} onClick={slideLeft} className='invisible md:visible absolute -left-[60px] -top-[40px] text-orange-main hover:opacity-50 ease-in-out duration-300' />
 
                 </div>
-                <div id='slider' className="relative flex items-center w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide">
+                <div id='slider' className="relative flex items-center w-full h-full overflow-hidden overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide">
 
                     {
                         galleryData.map((item) => (
@@ -44,7 +42,7 @@ const Gallery = ({ ref, admin }) => {
 
                 </div>
                 <div className='relative '>
-                    <MdChevronRight size={80} onClick={slideRight} className='invisible md:visible absolute -top-[40px] text-orange-main hover:opacity-50 ease-in-out duration-300' />
+                    <MdChevronRight size={80} onClick={slideRight} className='invisible md:visible absolute -left-[20px] -top-[40px] text-orange-main hover:opacity-50 ease-in-out duration-300' />
 
                 </div>
             </div>
