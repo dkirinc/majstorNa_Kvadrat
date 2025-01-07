@@ -108,7 +108,7 @@ export function AppWrapper({ children }: {
     async function deleteGalleryItem(id) {
         deleteIdGalleryPhotos(await getIdDBValue(id))
         await deleteIdDBValue(id)
-
+        setGalleryRefresh(!galleryRefresh)
     }
 
     //Upload
@@ -206,7 +206,7 @@ export function AppWrapper({ children }: {
             await getGalleryInfo(user)
         }
         loader()
-    }, [])
+    }, [galleryRefresh])
 
 
 

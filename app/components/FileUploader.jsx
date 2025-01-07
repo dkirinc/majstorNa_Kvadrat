@@ -15,11 +15,8 @@ const FileUploader = ({ handleFile, handleFileDB, btnText }) => {
     // Call a function (passed as a prop from the parent component)
     // to handle the user-selected file 
     const handleChange = event => {
-        console.log(event.target.files[0])
         const fileDB = event.target.files[0]
-
         const fileUploaded = URL.createObjectURL(event.target.files[0]);
-        console.log("Druga provjera - " + fileUploaded)
         handleFile(fileUploaded);
         handleFileDB(fileDB)
     };

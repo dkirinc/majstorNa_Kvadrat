@@ -3,7 +3,7 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import About from "./components/About";
 import Bottom from "./components/Bottom";
-import { useState, useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import Hamburger from "./components/Hamburger";
 import Modal from "./components/Modal";
 import { AppWrapper } from "./context";
@@ -30,6 +30,7 @@ export default function Home() {
 
   return (
     <AppWrapper>
+
       <main>
         <Hero ref={heroRef} />
         <Services ref={servicesRef} />
