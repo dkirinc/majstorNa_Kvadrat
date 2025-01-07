@@ -32,7 +32,7 @@ const Gallery = ({ ref, admin }) => {
     return (
         <div id='gallery' className='xl:w-[1200px] py-32 self-center flex flex-col items-center gap-16'>
             <h2 className='mb-20 font-raleway '>Galerija</h2>
-            <div ref={ref} className=' w-[290px] md:w-[620px] lg:w-[900px] xl:w-[1200px]  flex items-center overflow-hidden'>
+            <div ref={ref} className=' w-[290px] md:w-[620px] lg:w-[900px] xl:w-[1200px]  flex items-center '>
                 <div className='relative'>
                     <MdChevronLeft size={80} onClick={slideLeft} className='invisible md:visible absolute -left-[60px] -top-[40px] text-orange-main hover:opacity-50 ease-in-out duration-300' />
                 </div>
