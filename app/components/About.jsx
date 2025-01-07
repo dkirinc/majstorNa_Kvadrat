@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { useRef } from 'react';
+import Image from 'next/image'
 
 const About = forwardRef((props, ref) => {
 
@@ -21,7 +21,7 @@ const About = forwardRef((props, ref) => {
                     </div>
 
                     <div className='w-[320px] sm:w-[420px] md:w-[520px] h-full border rounded-lg'>
-                        <img src="/pgz.png" className='w-full h-full  object-cover border rounded-lg' alt="" />
+                        <Image src="/pgz.png" width={520} height={520} className='w-full h-full  object-cover border rounded-lg' alt="" />
                     </div>
                 </div>
 
@@ -29,5 +29,7 @@ const About = forwardRef((props, ref) => {
         </div>
     )
 });
+
+About.displayName = "About"
 
 export default About

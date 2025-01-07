@@ -19,5 +19,7 @@ const Bottom = forwardRef((props, ref) => {
     )
 })
 
+Bottom.displayName = "Bottom"
+
 export default Bottom
 

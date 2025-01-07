@@ -1,5 +1,4 @@
-import Navbar from './Navbar'
-import { useRef, forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 const Hero = forwardRef((props, ref) => {
 
@@ -25,5 +24,7 @@ const Hero = forwardRef((props, ref) => {
         </div >
     )
 })
+
+Hero.displayName = "Hero"
 
 export default Hero

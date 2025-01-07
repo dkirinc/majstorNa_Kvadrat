@@ -41,4 +41,6 @@ const Services = forwardRef((props, ref) => {
     )
 })
 
+Services.displayName = "Services"
+
 export default Services
