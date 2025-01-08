@@ -25,7 +25,7 @@ const GalleryItem = ({ item, admin }) => {
 
     return (
         <div className=''>
-            <div onClick={!admin ? (() => onClick()) : null} className={'relative w-[341px] h-[400px]  xl:w-[420px] m-1  flex ease-in-out duration-300 ' + (!admin ? ' hover:scale-95' : '')}>
+            <div onClick={!admin ? (() => onClick()) : null} className={'relative w-[341px] h-[470px]  xl:w-[420px] m-1  flex ease-in-out duration-300 ' + (!admin ? ' hover:scale-95' : '')}>
                 <div className='flex  my-1  rounded-lg '>
                     <img src={item.pic_1} alt="" className='w-[150px] xl:w-[209px] h-full object-fill  rounded-l-md' />
                     <div className='w-[1px] bg-orange-main opacity-80'></div>
