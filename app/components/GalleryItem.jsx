@@ -21,6 +21,11 @@ const GalleryItem = ({ item, admin }) => {
 
     // create an event listener
     useEffect(() => {
+        if (window.innerWidth < 720) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
         window.addEventListener("resize", handleResize)
     })
 
